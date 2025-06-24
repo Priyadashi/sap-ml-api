@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/Priyadashi/sap-ml-api/sap-ml-api:latest
+          tags: ghcr.io/priyadashi/sap-ml-api/sap-ml-api:latest
