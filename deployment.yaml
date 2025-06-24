@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sap-ml-api
+  namespace: ml-api
+  labels:
+    app: sap-ml-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sap-ml-api
+  template:
+    metadata:
+      labels:
+        app: sap-ml-api
+        sidecar.istio.io/inject: 'false'
+    spec:
+      containers:
+      - name: sap-ml-api-container
+        image: ghcr.io/priyadashi/sap-ml-api/sap-ml-api:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sap-ml-api-service
+  namespace: ml-api
+spec:
+  type: LoadBalancer
+  selector:
+    app: sap-ml-api
+  ports:
+  - port: 80
+    targetPort: 8080
